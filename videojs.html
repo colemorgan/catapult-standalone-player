@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+
+    <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+    <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
+  </head>
+
+  <body style="margin: 0px;">
+    <video
+      id="my-video"
+      class="video-js vjs-fluid vjs-big-play-centered"
+      controls
+      preload="auto"
+      poster="MY_VIDEO_POSTER.jpg"
+      data-setup="{}"
+    >
+      <source
+        src="https://stream.mux.com/4Kh5vMp1qRNmt9d5nFISxfwGW7sS13kfEGNkOFqqNcE.m3u8"
+        type="application/x-mpegURL"
+      />
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a
+        web browser that
+        <a href="https://videojs.com/html5-video-support/" target="_blank"
+          >supports HTML5 video</a
+        >
+      </p>
+    </video>
+
+    <script>
+      // Record the player init time
+      var playerInitTime = Date.now();
+
+      // EITHER initialize Mux Data monitoring like this
+      videojs("my-video", {
+        plugins: {
+          mux: {
+            debug: true,
+            data: {
+              env_key: "k0lmlc9sak4akderqtpv15nnp", // required
+
+              // Metadata
+              player_name: "", // ex: 'My Main Player'
+              player_init_time: playerInitTime // ex: 1451606400000
+
+              // ... and other metadata
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+  <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+</html>
