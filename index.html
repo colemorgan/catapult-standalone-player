@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, shrink-to-fit=no, initial-scale=1"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Catapult</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro"
+      rel="stylesheet"
+    />
+    <link href="https://vjs.zencdn.net/7.7.5/video-js.css" rel="stylesheet" />
+    <link
+      href="https://unpkg.com/@videojs/themes@1/dist/city/index.css"
+      rel="stylesheet"
+    />
+    <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+    <script src="https://vjs.zencdn.net/7.7.5/video.js"></script>
+    <script src="https://src.litix.io/videojs/2/videojs-mux.js"></script>
+
+    <style>
+      video {
+        width: 100%;
+      }
+      body {
+        width: 100%;
+        height: 100vh;
+        margin: 0px;
+      }
+    </style>
+  </head>
+  <body ng-app="starter" class="body fixed-sn  offwhite-skin">
+    <header></header>
+    <!-- <div ui-view="sidebar" style="transform: translate(0px)" id="slide-out" class="side-nav  fixed"></div> -->
+    <div autoscroll="false" class="container-fluid" style="padding:0">
+      <video
+        id="catapult-video"
+        class="video-js vjs-fluid vjs-default-skin vjs-big-play-centered"
+        controls
+        reload="auto"
+        poster=""
+      >
+        <source id="videoUrl" src="" type="application/x-mpegURL" />
+        <p class="vjs-no-js">
+          <a href="https://videojs.com/html5-video-support/" target="_blank"
+            >supports HTML5 video</a
+          >
+        </p>
+      </video>
+    </div>
+
+    <script>
+      var url_string = window.location.href;
+      var url = new URL(url_string);
+      var streamid = url.searchParams.get("streamid");
+      console.log(streamid);
+      document.getElementById("videoUrl").src =
+        "https://stream.mux.com/" + streamid + ".m3u8";
+    </script>
+
+    <footer class=""></footer>
+  </body>
+  <script>
+    $(document).ready(function() {
+      var playerInitTime = Date.now();
+      // EITHER initial"ize Mux Data monitoring like this
+      var player = videojs("catapult-video", {
+        liveui: true,
+        controlBar: {
+          progressControl: {
+            keepTooltipsInside: true
+          }
+        },
+        plugins: {
+          mux: {
+            debug: false,
+            data: {
+              env_key: "94pakc2b2llh44cidmkjofqf8", // required
+              // Site Metadata
+              viewer_user_id: "VirtualDemo", // ex: '12345'
+              video_id: "SteveJJvMixDemo",
+              video_title: "SteveJJvMixDemo",
+              video_stream_type: "ondemand",
+              sub_property_id: "lglDemo",
+              // Metadata"
+              player_name: "Catapult player", // ex: 'My Main Player'
+              player_init_time: playerInitTime // ex: 1451606400000
+              // ... and other metadata
+            }
+          }
+        }
+      });
+    });
+  </script>
+</html>
