@@ -1,6 +1,8 @@
 <html>
   <head>
     <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+    <script src="https://src.litix.io/videojs/3/videojs-mux.js"></script>
 
     <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
     <!-- <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script> -->
@@ -8,24 +10,15 @@
 
   <body style="margin: 0px;">
     <video
-      id="my-video"
-      class="video-js vjs-fluid vjs-big-play-centered"
+      id="my-player"
+      class="video-js vjs-default-skin vjs-fluid vjs-big-play-centered"
       controls
-      preload="auto"
       poster="/tc2020poster.jpg"
-      data-setup="{}"
     >
       <source
         src="https://stream.mux.com/VXezBAVBCAUJiQKrL00fv01007spEJFf2rVQGPLYTnoa4M.m3u8"
         type="application/x-mpegURL"
       />
-      <p class="vjs-no-js">
-        To view this video please enable JavaScript, and consider upgrading to a
-        web browser that
-        <a href="https://videojs.com/html5-video-support/" target="_blank"
-          >supports HTML5 video</a
-        >
-      </p>
     </video>
 
     <script>
@@ -33,25 +26,29 @@
       var playerInitTime = Date.now();
 
       // EITHER initialize Mux Data monitoring like this
-      videojs("my-video", {
+      videojs("my-player", {
         plugins: {
           mux: {
             debug: true,
             data: {
               env_key: "k0lmlc9sak4akderqtpv15nnp", // required
-
               // Metadata
-              player_init_time: playerInitTime, // ex: 1451606400000
-              player_name: "Catapult Standalone", // ex: 'My Main Player'
-              video_title: "TC2020 - Day 2 - Track3",
-              sub_property_id: "tc2020"
+              player_name: "", // ex: 'My Main Player'
+              player_init_time: playerInitTime,
+              video_title: "TC2020 Day 2 Track 3" // ex: 1451606400000
 
               // ... and other metadata
             }
           }
         }
       });
+
+      // OR call the mux function on the player instance
+      // var player = videojs('my-player');
+      // player.mux({
+      //   debug: false,
+      //   data: { ... }
+      // });
     </script>
   </body>
-  <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 </html>
